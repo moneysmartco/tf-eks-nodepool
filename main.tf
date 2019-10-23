@@ -3,7 +3,7 @@
 #------------------------------------------
 resource "aws_launch_template" "eks_lt" {
   name_prefix = "${var.project_name}-${var.env}-${var.node_group_name}-lt-"
-  image_id    = "${data.aws_ami.eks_node.id}"
+  image_id    = "${data.aws_ssm_parameter.eks_node.value}"
   description = "Launch template for ${var.project_name}-${var.env}-${var.node_group_name} at ${timestamp()}"
 
   key_name  = "${var.deploy_key_name}"
@@ -115,16 +115,10 @@ resource "aws_autoscaling_group" "eks_asg_lt" {
 #------------------------------
 # Auto-scaling group
 #------------------------------
-# Use latest EKS AMI
-# https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html
-data "aws_ami" "eks_node" {
-  most_recent = true
-  owners      = ["amazon"]
-
-  filter {
-    name   = "name"
-    values = ["amazon-eks-node-${var.eks_master_version}-v*"]
-  }
+# Use recommend image ID via SSM Parameter
+# https://docs.aws.amazon.com/eks/latest/userguide/retrieve-ami-id.html
+data "aws_ssm_parameter" "eks_node" {
+  name = "/aws/service/eks/optimized-ami/${var.eks_master_version}/amazon-linux-2/recommended/image_id"
 }
 
 data "template_file" "user_data" {
