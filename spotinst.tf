@@ -14,7 +14,7 @@ resource "spotinst_ocean_aws" "spotinst_auto_scaling" {
   # Networking
   subnet_ids         = "${split(",", var.private_subnet_ids)}"
   image_id           = "${data.aws_ssm_parameter.eks_node.value}"
-  security_group_ids = ["${aws_security_group.app_sg.id}"]
+  security_group_ids = ["${var.worker_node_security_group_id}"]
 
   # Metadata
   key_pair             = "${var.deploy_key_name}"
