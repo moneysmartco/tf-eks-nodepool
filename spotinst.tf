@@ -2,7 +2,7 @@ resource "spotinst_ocean_aws" "spotinst_auto_scaling" {
   count = "${var.spotinst_enable ? 1 : 0}"
 
   region        = "${var.spotinst_region}"
-  name          = "${var.project_name}-${var.env}-spotinst-test"
+  name          = "${var.project_name}-${var.env}"
   controller_id = "${var.project_name}-${var.env}"
 
   # Instance type & counts
