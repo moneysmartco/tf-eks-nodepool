@@ -12,19 +12,19 @@ resource "spotinst_ocean_aws" "spotinst_auto_scaling" {
   draining_timeout = "${var.spotinst_draining_timeout}"
 
   # Networking
-  subnet_ids         = "${split(",", var.private_subnet_ids)}"
-  image_id           = "${data.aws_ssm_parameter.eks_node.value}"
-  security_group_ids = ["${var.worker_node_security_group_id}"]
+  subnet_ids      = "${split(",", var.private_subnet_ids)}"
+  image_id        = "${data.aws_ssm_parameter.eks_node.value}"
+  security_groups = ["${var.worker_node_security_group_id}"]
 
   # Metadata
-  key_pair             = "${var.deploy_key_name}"
+  key_name             = "${var.deploy_key_name}"
   user_data            = "${data.template_file.user_data.rendered}"
   iam_instance_profile = "${var.worker_node_instance_profile_name}"
   monitoring           = true                                       # Detailed monitoring
 
   autoscaler {
-    is_auto_config = true
-    is_enabled     = true
+    autoscale_is_auto_config = true
+    autoscale_is_enabled     = true
   }
 
   tags = [
