@@ -9,18 +9,30 @@ variable "env" {
   default = ""
 }
 
-variable "vpc_id" {}
-variable "private_subnet_ids" {}
-variable "public_subnet_ids" {}
+variable "vpc_id" {
+}
+
+variable "private_subnet_ids" {
+}
+
+variable "public_subnet_ids" {
+}
 
 #----------------------
 # Master and Node config
 #----------------------
 
-variable "eks_cluster_name" {}
-variable "eks_master_version" {}
-variable "worker_node_security_group_id" {}
-variable "worker_node_instance_profile_name" {}
+variable "eks_cluster_name" {
+}
+
+variable "eks_master_version" {
+}
+
+variable "worker_node_security_group_id" {
+}
+
+variable "worker_node_instance_profile_name" {
+}
 
 #----------------------
 # User data
@@ -110,7 +122,7 @@ variable "tags" {
 locals {
   # env tag in map structure
   env_tag = {
-    Environment = "${var.env}"
+    Environment = var.env
   }
 
   # AWS-required k8s tag in map structure
@@ -131,16 +143,22 @@ locals {
   #------------------------------------------------------------
   # variables that will be mapped to the various resource block
   #------------------------------------------------------------
-  eks_asg_tags = "${merge(var.tags, local.k8s_tag, local.env_tag, local.eks_asg_name_tag, local.datadog_tag)}"
+  eks_asg_tags = merge(
+    var.tags,
+    local.k8s_tag,
+    local.env_tag,
+    local.eks_asg_name_tag,
+    local.datadog_tag,
+  )
 }
 
 # data structure to transform the tags structure(list of maps) required by auto scaling group resource
 data "null_data_source" "eks_asg_tags" {
-  count = "${length(local.eks_asg_tags)}"
+  count = length(local.eks_asg_tags)
 
   inputs = {
-    key                 = "${element(keys(local.eks_asg_tags), count.index)}"
-    value               = "${element(values(local.eks_asg_tags), count.index)}"
+    key                 = element(keys(local.eks_asg_tags), count.index)
+    value               = element(values(local.eks_asg_tags), count.index)
     propagate_at_launch = true
   }
 }
@@ -213,3 +231,4 @@ variable "spotinst_tags_project" {
 variable "spotinst_tags_stack" {
   default = "shop"
 }
+
