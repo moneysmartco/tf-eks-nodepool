@@ -25,6 +25,11 @@ resource "spotinst_ocean_aws" "spotinst_auto_scaling" {
   autoscaler {
     autoscale_is_auto_config = true
     autoscale_is_enabled     = true
+
+    resource_limits {
+        max_memory_gib = 100000
+        max_vcpu       = 20000
+    }
   }
 
   tags {
