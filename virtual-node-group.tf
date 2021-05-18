@@ -1,8 +1,8 @@
 resource "spotinst_ocean_aws_launch_spec" "virtual_node_group" {
   count = var.spotinst_enable ? 1 : 0
 
-  ocean_id                    = var.project_name-var.env
-  name                        = var.project_name-var.env
+  ocean_id                    = "${var.project_name}-${var.env}"
+  name                        = "${var.project_name}-${var.env}"
   image_id                    = data.aws_ssm_parameter.eks_node.value
   user_data                   = data.template_file.user_data.rendered
   iam_instance_profile        = var.worker_node_instance_profile_name
