@@ -8,7 +8,6 @@ resource "spotinst_ocean_aws_launch_spec" "virtual_node_group" {
   iam_instance_profile        = var.worker_node_instance_profile_name
   security_groups             = [var.worker_node_security_group_id]
   subnet_ids                  = split(",", var.private_subnet_ids)
-  root_volume_size            = 20
 
   instance_types = split(",", var.spotinst_whitelist)
 
