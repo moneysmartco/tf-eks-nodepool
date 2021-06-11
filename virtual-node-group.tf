@@ -26,6 +26,10 @@ resource "spotinst_ocean_aws_launch_spec" "virtual_node_group" {
     }
   }
 
+  strategy {
+    spot_percentage = 50
+  }
+
 
   tags {
     key   = "Name"
