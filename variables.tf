@@ -231,3 +231,6 @@ variable "spotinst_tags_stack" {
   default = "shop"
 }
 
+variable "spot_percentage" {
+  default = 100
+}
