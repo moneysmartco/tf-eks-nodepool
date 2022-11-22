@@ -234,3 +234,9 @@ variable "spotinst_tags_stack" {
 variable "spot_percentage" {
   default = 100
 }
+
+variable "spotinst_token" {
+}
+
+variable "spotinst_account" {
+}
