@@ -10,9 +10,9 @@ fi
 
 if grep -q imageGCLowThresholdPercent /etc/kubernetes/kubelet/kubelet-config.json;
 then
-    sed -i 's/"imageGCLowThresholdPercent":.*/"imageGCLowThresholdPercent": 50,/' /etc/kubernetes/kubelet/kubelet-config.json
+    sed -i 's/"imageGCLowThresholdPercent":.*/"imageGCLowThresholdPercent": 40,/' /etc/kubernetes/kubelet/kubelet-config.json
 else
-    sed -i '/"apiVersion*/a \ \ "imageGCLowThresholdPercent": 50,' /etc/kubernetes/kubelet/kubelet-config.json
+    sed -i '/"apiVersion*/a \ \ "imageGCLowThresholdPercent": 40,' /etc/kubernetes/kubelet/kubelet-config.json
 fi
 
 /etc/eks/bootstrap.sh ${eks_cluster_name} --container-runtime containerd
