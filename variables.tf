@@ -41,6 +41,10 @@ variable "user_data_bootstrap_arguments" {
   default = ""
 }
 
+variable "eks_cluster_client_version" {
+  default = "v1.24.2"
+}
+
 #------------------------------------------
 # Auto-scaling group via Launch Template
 #------------------------------------------
