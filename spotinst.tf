@@ -10,6 +10,7 @@ resource "spotinst_ocean_aws" "spotinst_auto_scaling" {
   min_size         = var.spotinst_min_size
   max_size         = var.spotinst_max_size
   draining_timeout = var.spotinst_draining_timeout
+  root_volume_size = var.spotinst_root_volume_size
 
   # Networking
   subnet_ids      = split(",", var.private_subnet_ids)
