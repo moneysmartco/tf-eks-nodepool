@@ -128,6 +128,7 @@ data "template_file" "user_data" {
   vars = {
     eks_cluster_name    = var.eks_cluster_name
     bootstrap_arguments = var.user_data_bootstrap_arguments
+    eks_cluster_client_version = var.eks_cluster_client_version
   }
 }
 

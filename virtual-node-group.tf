@@ -19,7 +19,7 @@ resource "spotinst_ocean_aws_launch_spec" "virtual_node_group" {
       encrypted             = "true"
       volume_type           = "gp2"
       dynamic_volume_size {
-        base_size              = 20
+        base_size              = 40
         resource               = "CPU"
         size_per_resource_unit = 5
       }

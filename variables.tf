@@ -34,11 +34,19 @@ variable "worker_node_security_group_id" {
 variable "worker_node_instance_profile_name" {
 }
 
+variable "spotinst_root_volume_size"{
+  default= 80
+}
+
 #----------------------
 # User data
 #----------------------
 variable "user_data_bootstrap_arguments" {
   default = ""
+}
+
+variable "eks_cluster_client_version" {
+  default = "v1.24.2"
 }
 
 #------------------------------------------
